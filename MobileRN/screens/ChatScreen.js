@@ -75,17 +75,6 @@ const ChatScreen = () => {
     )
     console.log('sent message', sentMessage)
     try {
-      // Send message to backend
-      // const response = await fetch('https://your-api-endpoint.com/chat/send', {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     text: sentMessage.text,
-      //     userId: 1,  // Adjust with your user ID
-      //   }),
-      // });
       console.log(`${myConfig.backendApiUrl}/get_reply?user=${userToken}&query=${sentMessage.text}`)
       const response = await fetch(`${myConfig.backendApiUrl}/get_reply?user=${userToken || 'Bob'}&query=${sentMessage.text}`, {
         method: 'GET',

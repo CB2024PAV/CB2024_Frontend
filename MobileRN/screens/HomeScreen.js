@@ -1,11 +1,11 @@
 // screens/HomeScreen.js
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Image source={require('../assets/patronus.png')} style={{ width: 200, height: 200, borderRadius: 20 }}></Image>
     </View>
   );
 };

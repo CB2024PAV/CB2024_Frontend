@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/VideoSearchScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,9 +42,9 @@ const BottomTabNavigator = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Videos',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialCommunityIcons name="video" color={color} size={size} />
           ),
         }}
       />

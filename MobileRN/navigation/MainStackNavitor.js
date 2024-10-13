@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomTabNavigator from './BottomTabNavigator';
 import ProfileQuestionnaireScreen from '../screens/ProfileQuestionnaire';
 import LoginScreen from '../screens/LoginScreen';
+import VideoScreen from '../screens/VideoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +36,7 @@ const MainStackNavigator = () => {
               <Ionicons name="person-circle-outline" size={30} color="black" />
             </TouchableOpacity>
           ),
-          title: 'Friendly App',
+          title: 'Patronus',
         }}
       />
       <Stack.Screen 
@@ -48,6 +49,14 @@ const MainStackNavigator = () => {
             </TouchableOpacity>
           ),
           title: 'Questionnaire',
+        }}
+			/>
+      <Stack.Screen 
+				name="VideoScreen" 
+				component={VideoScreen} 
+				options={{
+          
+          title: 'Video Screen',
         }}
 			/>
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
