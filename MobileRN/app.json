@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Impulse",
-    "slug": "Impulse",
+    "name": "Patronus",
+    "slug": "patronus",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,14 +12,18 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.patronus"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.Impulse"
+      "package": "com.anonymous.patronus",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,7 +36,19 @@
             "usesCleartextTraffic": true
           }
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e031e8f8-caaa-4a99-a129-8f0a2f2727fb"
+      }
+    },
+    "owner": "prathiksomanath"
   }
 }

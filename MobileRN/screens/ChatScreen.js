@@ -6,10 +6,23 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { BORDER_GREY } from '../assets/styles/colors'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { myConfig } from '../config'
+import Icon from "react-native-vector-icons/Ionicons";
+import * as Speech from 'expo-speech';
+import { TouchableOpacity } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ChatScreen = () => {
   const [userToken, setUserToken] = useState('Bob');
   const [messages, setMessages] = useState([])
+  const [onSpeak, setOnSpeak] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        Speech.stop()
+      };
+    }, [])
+  )
 
   useEffect(() => {
     
@@ -52,6 +65,7 @@ const ChatScreen = () => {
       });
       const result = await response.json();
       let formattedMessage = ''
+      // console.log(result)
       if (result.data && result.success) {
         formattedMessage = formatMessages(result.data);
         setMessages(formattedMessage);
@@ -93,6 +107,17 @@ const ChatScreen = () => {
     }
   }, []);
 
+  const onSpeakPress = async(bubbleData) => {
+    console.log("bubble: ", bubbleData|| 'not there')
+    setOnSpeak(true)
+    if (onSpeak) {
+      setOnSpeak(false)
+      Speech.stop()
+    } else {
+      Speech.speak(bubbleData?.currentMessage?.text || '.');
+    }
+  }
+
 
   return (
     <GiftedChat
@@ -115,20 +140,47 @@ const ChatScreen = () => {
         return(null);
       }}
       renderBubble={props => {
+        const speechTextData =  props
         return (
-          <Bubble
-            {...props}
-            textStyle={{
-              right: {
-                // color: 'yellow',
-              },
-            }}
-            wrapperStyle={{
-              left: {
-                backgroundColor: BORDER_GREY,
-              },
-            }}
-          />
+
+          <View
+            style={{ flex: 1, flexDirection: 'row'}}>
+              <Bubble
+                {...props}
+                textStyle={{
+                  right: {
+                    // color: 'yellow',
+                  },
+                }}
+                wrapperStyle={{
+                  left: {
+                    backgroundColor: BORDER_GREY,
+                  },
+                }}
+              />
+              { (props.currentMessage.user._id === 2)
+              ? (
+                <TouchableOpacity style={{backgroundColor: 'red', zIndex: 999}} onPress={() => {
+                  console.log('pressing')
+                  // onSpeakPress(props)
+                }}>
+                  <Icon name={"volume-high"} size={32} color={"blue"} style={{ marginLeft: -60 }} onPress={() => onSpeakPress(speechTextData)} />
+                </TouchableOpacity>
+              ): <></>
+              }
+            {/* <Image
+              style={{
+                width: 30,
+                height: 30,
+                marginTop: 'auto',
+                bottom: 0,
+              }}
+              source={{
+                uri:
+                  'https://icons-for-free.com/iconfiles/png/512/next+reply+icon-1320165657413388724.png',
+              }}
+            /> */}
+          </View>
         );
       }}
     />

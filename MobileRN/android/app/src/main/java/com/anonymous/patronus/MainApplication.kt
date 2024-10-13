@@ -1,4 +1,4 @@
-package com.anonymous.Impulse
+package com.anonymous.patronus
 
 import android.app.Application
 import android.content.res.Configuration
