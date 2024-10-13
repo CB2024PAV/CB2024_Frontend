@@ -14,6 +14,7 @@ export default function App() {
       let token;
       try {
         token = await AsyncStorage.getItem('userToken');
+        console.log("userToken: ", userToken)
       } catch (e) {
         console.error('Failed to get user token:', e);
       }

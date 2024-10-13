@@ -25,9 +25,11 @@
     },
     "plugins": [
       [
-        "expo-font",
+        "expo-build-properties",
         {
-          "fonts": ["./assets/fonts/Urbanist-Bold.ttf", "./assets/fonts/Urbanist-Regular.ttf"]
+          "android": {
+            "usesCleartextTraffic": true
+          }
         }
       ]
     ]

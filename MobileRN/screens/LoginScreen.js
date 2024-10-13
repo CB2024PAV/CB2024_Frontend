@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { myConfig } from '../config'
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -9,20 +10,32 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    // Implement your login logic here
-    // For this example, we'll just check if both fields are non-empty
     if (user.trim() && password.trim()) {
       try {
-        // Store the user token (you might want to use a more secure token in a real app)
-        await AsyncStorage.setItem('userToken', 'dummyToken');
-        // Navigate to the main app
-        // navigation.navigate('MainTabs');
-        navigation.replace('MainTabs');
+        // console.log(`${myConfig.backendApiUrl}/login`)
+        const response = await fetch(`${myConfig.backendApiUrl}/login`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({usr: user, pass: password}).toString(),
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            Alert.alert('Success', data.message);
+            await AsyncStorage.setItem('userToken', user);
+            navigation.replace('MainTabs');
+        } else {
+            Alert.alert('Failure', 'Wrong Username or Password');
+        }
+        
       } catch (error) {
         console.error('Error saving token:', error);
       }
     } else {
-      alert('Please enter both user and password');
+      console.error('Error:');
+      Alert.alert('Error', 'Please enter username and password');
     }
   };
 
